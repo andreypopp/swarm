@@ -23,6 +23,19 @@ function SimpleObject (id) {
 Peer.extend(SimpleObject,'/SmpObj');
 SpecValEmitter._debug = true;
 
+function testSpec2 () {
+    var testSpec = '/Class#ID.field!20130811_192632+4&gritzko-1111';
+    var spec = new Spec2(testSpec);
+    isEqual(spec.time,'20130811T192632');
+    isEqual(spec.ssn,'1111');
+    var rev = spec.toString();
+    isEqual(rev,testSpec);
+    var time = '20130811_192020';
+    var date = Spec2.ts2date(time);
+    isEqual(date.getMonth(),7); // zero based
+    isEqual(date.getSeconds(),20);
+}
+
 function testNewId () {
     var id = new ID('!',16);
     var str = id.toString();
@@ -374,6 +387,7 @@ function runTest (fn) {
 
 runTest(testNewId);
 runTest(testNewSpec); 
+runTest(testSpec2); 
 
 runTest(testSigs);
 
